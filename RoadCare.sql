@@ -266,3 +266,82 @@ AS
 	((SELECT inserted.id FROM inserted), 'SUPERVISOR', 'ACTIVO')
 
 GO
+
+-- data scripts --
+
+INSERT INTO departments (name) VALUES
+('AMAZONAS'),
+('ANCASH'),
+('APURIMAC'),
+('AREQUIPA'),
+('AYACUCHO'),
+('CAJAMARCA'),
+('CALLAO'),
+('CUSCO'),
+('HUANCAVELICA'),
+('HUANUCO'),
+('ICA'),
+('JUNIN'),
+('LA LIBERTAD'),
+('LAMBAYEQUE'),
+('LIMA'),
+('LORETO'),
+('MADRE DE DIOS'),
+('MOQUEGUA'),
+('PASCO'),
+('PIURA'),
+('PUNO'),
+('SAN MARTIN'),
+('TACNA'),
+('TUMBES'),
+('UCAYALI');
+GO
+INSERT INTO districts (departments_id, name) VALUES
+(15, 'ANCON'),
+(15, 'ATE'),
+(15, 'BARRANCO'),
+(15, 'BREÑA'),
+(15, 'CARABAYLLO'),
+(15, 'CHACLACAYO'),
+(15, 'CHORRILLOS'),
+(15, 'CERCADO DE LIMA'),
+(15, 'CIENEGUILLA'),
+(15, 'COMAS'),
+(15, 'EL AGUSTINO'),
+(15, 'INDEPENDENCIA'),
+(15, 'JESUS MARIA'),
+(15, 'LA MOLINA'),
+(15, 'LA VICTORIA'),
+(15, 'LINCE'),
+(15, 'LOS OLIVOS'),
+(15, 'LURIGANCHO'),
+(15, 'LURIN'),
+(15, 'MAGDALENA DEL MAR'),
+(15, 'MAGDALENA VIEJA'),
+(15, 'MIRAFLORES'),
+(15, 'PACHACAMAC'),
+(15, 'PUCUSANA'),
+(15, 'PUEBLO LIBRE'),
+(15, 'PUENTE PIEDRA'),
+(15, 'PUNTA HERMOSA'),
+(15, 'PUNTA NEGRA'),
+(15, 'RIMAC'),
+(15, 'SAN BARTOLO'),
+(15, 'SAN BORJA'),
+(15, 'SAN ISIDRO'),
+(15, 'SAN JUAN DE LURIGANCHO'),
+(15, 'SAN JUAN DE MIRAFLORES'),
+(15, 'SAN LUIS'),
+(15, 'SAN MARTIN DE PORRES'),
+(15, 'SAN MIGUEL'),
+(15, 'SANTA ANITA'),
+(15, 'SANTA MARIA DEL MAR'),
+(15, 'SANTA ROSA'),
+(15, 'SANTIAGO DE SURCO'),
+(15, 'SURQUILLO'),
+(15, 'VILLA EL SALVADOR'),
+(15, 'VILLA MARIA DEL TRIUNFO');
+GO
+INSERT INTO governments_entities (districts_id, ruc, name, phone, email, address) VALUES
+(22, 20503644968, 'MUNICIPALIDAD DE MIRAFLORES', 7550099, 'administracion.documentaria@miraflores.gob.pe', 'AV. JOSÉ LARCO 400, MIRAFLORES 15074')
+GO
