@@ -6,7 +6,7 @@ GO
 
 CREATE TABLE departments
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	name varchar(50) NOT NULL
 
 	CONSTRAINT pk_department_id PRIMARY KEY (id)
@@ -14,7 +14,7 @@ CREATE TABLE departments
 GO
 CREATE TABLE districts
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	departments_id int NOT NULL,
 	name varchar(50) NOT NULL
 
@@ -26,7 +26,7 @@ CREATE TABLE districts
 GO
 CREATE TABLE governments_entities
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	districts_id int NOT NULL,
 	ruc varchar(100) NOT NULL,
 	name varchar(50) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE governments_entities
 GO
 CREATE TABLE workers_areas
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	governments_entities_id int NOT NULL,
 	name varchar(50) NOT NULL,
 	state varchar(20) NOT NULL
@@ -57,7 +57,7 @@ CREATE TABLE workers_areas
 GO
 CREATE TABLE workers_roles
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	workers_areas_id int NOT NULL,
 	name varchar(20) NOT NULL,
 	state varchar(20) NOT NULL
@@ -108,7 +108,7 @@ CREATE TABLE workers_credentials
 GO
 CREATE TABLE assignments_workers
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	workers_roles_id int NOT NULL,
 	workers_id int NOT NULL,
 	start_date date NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE assignments_workers
 GO
 CREATE TABLE damaged_infrastructures
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	districts_id int NOT NULL,
 	registration_date datetime NOT NULL,
 	description varchar(200) NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE damaged_infrastructures
 GO
 CREATE TABLE staff
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	damaged_infrastructures_id int NOT NULL,
 	workers_id int NOT NULL,
 	state varchar(20) NOT NULL
@@ -192,7 +192,7 @@ CREATE TABLE citizens_credentials
 GO
 CREATE TABLE publications
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	citizens_id int NOT NULL,
 	publication_date datetime NOT NULL,
 	districts_id int NOT NULL,
@@ -213,7 +213,7 @@ CREATE TABLE publications
 GO
 CREATE TABLE evidences
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	publications_id int NOT NULL,
 	file_url varchar(MAX) NOT NULL
 
@@ -225,7 +225,7 @@ CREATE TABLE evidences
 GO
 CREATE TABLE comments
 (
-	id int identity (1,1) NOT NULL,
+	id int identity(1,1) NOT NULL,
 	publications_id int NOT NULL,
 	citizens_id int NOT NULL,
 	shipping_date datetime NOT NULL,
@@ -242,4 +242,27 @@ CREATE TABLE comments
 
 	CONSTRAINT chk_comment_state CHECK (state IN ('REPORTADO', 'ELIMINADO', 'ENVIADO'))
 )
+GO
+
+-- triggers --
+
+CREATE TRIGGER tg_register_data_workers_areas
+ON governments_entities FOR INSERT
+AS
+
+	SET NOCOUNT ON
+
+	INSERT INTO workers_areas VALUES
+	((SELECT inserted.id FROM inserted), 'ADMINISTRACION', 'ACTIVO')
+
+GO
+CREATE TRIGGER tg_register_data_workers_roles
+ON workers_areas FOR INSERT
+AS
+
+	SET NOCOUNT ON
+
+	INSERT INTO workers_roles VALUES
+	((SELECT inserted.id FROM inserted), 'SUPERVISOR', 'ACTIVO')
+
 GO
